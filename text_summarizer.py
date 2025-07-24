@@ -3,26 +3,21 @@ import nltk
 nltk.download('punkt')
 nltk.download('punkt_tab')
 
-# Extractive
 from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lsa import LsaSummarizer
 
-# Abstractive
-from transformers import T5Tokenizer, T5ForConditionalGeneration
+from transformers import pipeline
 
-# Abstractive Setup
-ab_tokenizer = T5Tokenizer.from_pretrained("t5-small")
-ab_model = T5ForConditionalGeneration.from_pretrained("t5-small")
+# Load HuggingFace summarizer
+summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
 
 def extractive_summary(text, num_sentences=3):
     parser = PlaintextParser.from_string(text, Tokenizer("english"))
-    summarizer = LsaSummarizer()
-    summary = summarizer(parser.document, num_sentences)
-    return ' '.join(str(sentence) for sentence in summary)
+    summarizer_lsa = LsaSummarizer()
+    summary = summarizer_lsa(parser.document, num_sentences)
+    return " ".join(str(sentence) for sentence in summary)
 
-def abstractive_summary(text):
-    input_text = "summarize: " + text
-    input_ids = ab_tokenizer.encode(input_text, return_tensors="pt", truncation=True)
-    summary_ids = ab_model.generate(input_ids, max_length=150, min_length=30, length_penalty=2.0, num_beams=4, early_stopping=True)
-    return ab_tokenizer.decode(summary_ids[0], skip_special_tokens=True)
+def abstractive_summary(text, min_len=30, max_len=100):
+    summary = summarizer(text, min_length=min_len, max_length=max_len)[0]['summary_text']
+    return summary
