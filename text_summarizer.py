@@ -1,4 +1,7 @@
 # text_summarizer.py
+import nltk
+nltk.download('punkt')
+nltk.download('punkt_tab')
 
 # Extractive
 from sumy.parsers.plaintext import PlaintextParser
