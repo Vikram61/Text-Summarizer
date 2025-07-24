@@ -5,3 +5,4 @@ torch
 nltk
 sentencepiece
 sumy
+pycryptodome
