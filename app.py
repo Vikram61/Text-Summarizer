@@ -4,7 +4,7 @@ import PyPDF2
 import io
 
 st.set_page_config(page_title="Text Summarizer", layout="wide")
-st.title("📝 Text Summarizer")
+st.title(" Text Summarizer")
 
 uploaded_file = st.file_uploader("Upload a PDF (optional)", type=["pdf"])
 text = ""
@@ -28,7 +28,7 @@ if mode == "Extractive":
     if st.button("Generate Extractive Summary"):
         if text.strip():
             summary = extractive_summary(text, num_sentences)
-            st.subheader("📄 Extractive Summary")
+            st.subheader(" Extractive Summary")
             st.write(summary)
         else:
             st.warning("Please upload a PDF or enter some text!")
@@ -40,7 +40,7 @@ else:
     if st.button("Generate Abstractive Summary"):
         if text.strip():
             summary = abstractive_summary(text, min_len, max_len)
-            st.subheader("📄 Abstractive Summary")
+            st.subheader("Abstractive Summary")
             st.write(summary)
         else:
             st.warning("Please upload a PDF or enter some text!")
