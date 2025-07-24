@@ -15,10 +15,10 @@ if uploaded_file:
         text += page.extract_text() or ""
     st.success("✅ PDF text extracted successfully!")
 
-# Allow manual text entry
+
 manual_text = st.text_area("Or enter text manually", height=300)
 if manual_text.strip():
-    text = manual_text  # Override PDF text if user enters manually
+    text = manual_text 
 
 mode = st.radio("Choose summarization type", ("Extractive", "Abstractive"))
 
