@@ -6,7 +6,7 @@ import io
 st.set_page_config(page_title="Text Summarizer", layout="wide")
 st.title(" Text Summarizer")
 
-uploaded_file = st.file_uploader("Upload a PDF (optional)", type=["pdf"])
+uploaded_file = st.file_uploader("Upload a PDF", type=["pdf"])
 text = ""
 
 if uploaded_file:
